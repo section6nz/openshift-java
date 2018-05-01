@@ -8,7 +8,7 @@ LABEL name="java-openjdk" \
     io.k8s.description="OpenJDK base image providing java runtime" \
     io.k8s.display-name="Java 8"
 
-ENV JAVA_HOME="/usr/lib/jvm/java" \
+ENV JAVA_HOME="/usr/lib/jvm" \
     JAVA_VERSION="${JAVA_VERSION}"
 
 RUN microdnf install \
@@ -17,4 +17,5 @@ RUN microdnf install \
         --nodocs \
         java-${JAVA_VERSION}-openjdk-headless \
     && microdnf clean all \
-    && cp /etc/pki/ca-trust/source/anchors/* ${JAVA_HOME}/jre/lib/security/.
+    && find /etc/pki/ca-trust/source/anchors -type f \
+        -exec cp {} ${JAVA_HOME}/jre/lib/security/ \;
