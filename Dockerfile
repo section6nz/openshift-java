@@ -16,6 +16,4 @@ RUN microdnf install \
         --enablerepo=rhel-7-server-thirdparty-oracle-java-rpms \
         --nodocs \
         java-${JAVA_VERSION}-openjdk-headless \
-    && microdnf clean all \
-    && find /etc/pki/ca-trust/source/anchors -type f \
-        -exec cp {} ${JAVA_HOME}/lib/security/ \;
+    && microdnf clean all
